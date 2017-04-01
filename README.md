@@ -23,5 +23,17 @@ You need a working verson of *go* in order to build its latest version:
     gvm use go1.8 --default
     sudo zypper remove go go-doc ## no longer needed stock version
     
-    
+### Installing latest LXD
 
+That step might be NOT the best idea if you plan to **learn** LXC but I must admit using **[LXD](https://github.com/lxc/lxd)**, *- a daemon based on liblxc offering a REST API to manage containers -*, on Ubuntu has spoilt me ;)
+
+    ## to really build
+    sudo zypper install acl dnsmasq dnsmasq-utils git lxc lxcfs liblxc-devel liblxc1 libvirt-deamon-driver-lxc libvirt-deamon-lxc  make pkg-config rsync squashfs tar xz xz-devel lvm2 lvm2-devel libbtrfs-devel btrfsprogs curl gettext-runtime gettext-tools jq sqlite3 uuidd uuid-devel libuuid1 python-pyflakes python-pep8 bzr ShellCheck
+    go get github.com/lxc/lxd
+    cd $GOPATH/src/github.com/lxc/lxd
+    make
+    
+    ## To peek on the code source if some fix it's needed
+    cd ~ && mkdir -p Code && cd Code
+    git clone https://github.com/lxc/lxd.git
+    
