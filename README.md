@@ -61,10 +61,38 @@ Provided [latest Go](https://github.com/moovweb/gvm) is installed in a similar w
     ## ## Ubuntu-like LXD build dependencies
     sudo apt-get install acl dnsmasq-base git liblxc1 lxc-dev make pkg-config rsync squashfs-tools tar xz-utils lvm2 thin-provisioning-tools btrfs-tools curl gettext jq sqlite3 uuid-runtime pyflakes pep8 shellcheck bzr
     
-And follow previous **openSUSE** bulding instructions.
+A# LXD
+158 alias uplxd="sudo -E $GOPATH/bin/lxd --group lxd"
+159 export PATH="$GOPATH/bin:$PATH"nd follow previous **openSUSE** bulding instructions.
+ 
+ ## Shorcuts
+ 
+ Create a group for **lxd** and join your working user to it:
+ 
+     sudo groupadd lxd
+     sudo usermod -aG sudo user
+     
+ Add to your *.bashrc* or similar configuration file:
+ 
+     ## LXD
+     alias uplxd="sudo -E $GOPATH/bin/lxd --group lxd"
+     export PATH="$GOPATH/bin:$PATH"
+
+After having rebooted your session, you'll be able to launch LXD with **uplxd** in one console and work in another with simpler commands:
+
+     lxd init
+     lxc config show
      
  ## Hello, World!
  
- Taking for granted you're following previous links to [LXC](https://linuxcontainers.org) and to [LXD](https://github.com/lxc/lxd), there's nothing to write home in the following commands:
+ Taking for granted you're following previous links to [LXC](https://linuxcontainers.org) and to [LXD](https://github.com/lxc/lxd), there's nothing to write home about in the following commands. Choose some image from [Image server for LXC and LXD](http://images.linuxcontainers.org) and [test the basic steps](https://linuxcontainers.org/lxd/getting-started-cli):
  
- 
+     lxc image copy ubuntu:16.04 local: --alias ubuntu-xenial
+     lxc image list ## ubuntu-xenial image should be listed
+     lxc launch ubunut-xenial ubuntu
+     lxc list ## ubuntu running container should be listed
+     lxc exec ubuntu -- uname -a
+     ## Linux ubuntu 4.9.0-2-amd64 #1 SMP Debian 4.9.18-1 (2017-03-30) x86_64 x86_64 x86_64 GNU/Linux
+     lxc stop ubuntu
+     lxc image delete ubuntu-xenial
+     
