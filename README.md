@@ -25,11 +25,13 @@ You need a working verson of *go* in order to build its latest version:
     
 ### Installing latest LXD
 
-That step might be NOT the best idea if you plan to **learn** LXC but I must admit using **[LXD](https://github.com/lxc/lxd)**, *- a daemon based on liblxc offering a REST API to manage containers -*, on Ubuntu has spoilt me ;)
+That step might be NOT the best idea if you plan to **learn** LXC but I must admit using **[LXD](https://github.com/lxc/lxd)**, *- a daemon based on liblxc offering a REST API to manage containers -*, on Ubuntu has spoilt me:
+
+    ## Ubuntu-like LXD build dependencies
+    sudo zypper install acl dnsmasq dnsmasq-utils git lxc lxcfs liblxc-devel liblxc1 libvirt-deamon-driver-lxc libvirt-deamon-lxc  make pkg-config rsync squashfs tar xz xz-devel lvm2 lvm2-devel libbtrfs-devel btrfsprogs curl gettext-runtime gettext-tools jq sqlite3 uuidd uuid-devel libuuid1 python-pyflakes python-pep8 bzr ShellCheck
 
 #### Build LXD
-
-    sudo zypper install acl dnsmasq dnsmasq-utils git lxc lxcfs liblxc-devel liblxc1 libvirt-deamon-driver-lxc libvirt-deamon-lxc  make pkg-config rsync squashfs tar xz xz-devel lvm2 lvm2-devel libbtrfs-devel btrfsprogs curl gettext-runtime gettext-tools jq sqlite3 uuidd uuid-devel libuuid1 python-pyflakes python-pep8 bzr ShellCheck
+    
     go get github.com/lxc/lxd
     cd $GOPATH/src/github.com/lxc/lxd
     make
@@ -48,7 +50,19 @@ You'll need sub{u,g}ids for root, so that LXD can create the unprivileged contai
 Now you can run the daemon (the --group sudo bit allows everyone in the sudo group to talk to LXD; you can create your own group if you want):
 
     sudo -E $GOPATH/bin/lxd --group sudo
+ 
+ ## Debian
+ 
+Provided [latest Go](https://github.com/moovweb/gvm) is installed in a similar way that *openSUSE*, *- maybe you should install as well "bison" -*, you'd better have a look at [LXC Debian Wiki](https://wiki.debian.org/LXC):
+
+    ## Debian stock LXC
+    sudo apt-get install lxc lxc-dev lxc-tests lxcfs lxctl liblxc1 libvirt-clients libvirt-daemon libvirt-daemon-system libvirt-dev
     
+    ## ## Ubuntu-like LXD build dependencies
+    sudo apt-get install acl dnsmasq-base git liblxc1 lxc-dev make pkg-config rsync squashfs-tools tar xz-utils lvm2 thin-provisioning-tools btrfs-tools curl gettext jq sqlite3 uuid-runtime pyflakes pep8 shellcheck bzr
+    
+And follow previous **openSUSE** bulding instructions.
+     
  ## Hello, World!
  
  Taking for granted you're following previous links to [LXC](https://linuxcontainers.org) and to [LXD](https://github.com/lxc/lxd), there's nothing to write home in the following commands:
