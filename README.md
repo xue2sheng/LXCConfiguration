@@ -27,13 +27,30 @@ You need a working verson of *go* in order to build its latest version:
 
 That step might be NOT the best idea if you plan to **learn** LXC but I must admit using **[LXD](https://github.com/lxc/lxd)**, *- a daemon based on liblxc offering a REST API to manage containers -*, on Ubuntu has spoilt me ;)
 
-    ## to really build
+#### Build LXD
+
     sudo zypper install acl dnsmasq dnsmasq-utils git lxc lxcfs liblxc-devel liblxc1 libvirt-deamon-driver-lxc libvirt-deamon-lxc  make pkg-config rsync squashfs tar xz xz-devel lvm2 lvm2-devel libbtrfs-devel btrfsprogs curl gettext-runtime gettext-tools jq sqlite3 uuidd uuid-devel libuuid1 python-pyflakes python-pep8 bzr ShellCheck
     go get github.com/lxc/lxd
     cd $GOPATH/src/github.com/lxc/lxd
     make
     
-    ## To peek on the code source if some fix it's needed
+#### Access to its source code for possible additional fixes
+
     cd ~ && mkdir -p Code && cd Code
     git clone https://github.com/lxc/lxd.git
     
+#### LXD Machine Setup
+
+You'll need sub{u,g}ids for root, so that LXD can create the unprivileged containers:
+
+    echo "root:1000000:65536" | sudo tee -a /etc/subuid /etc/subgid
+
+Now you can run the daemon (the --group sudo bit allows everyone in the sudo group to talk to LXD; you can create your own group if you want):
+
+    sudo -E $GOPATH/bin/lxd --group sudo
+    
+ ## Hello, World!
+ 
+ Taking for granted you're following previous links to [LXC](https://linuxcontainers.org) and to [LXD](https://github.com/lxc/lxd), there's nothing to write home in the following commands:
+ 
+ 
